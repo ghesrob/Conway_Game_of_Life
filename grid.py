@@ -32,7 +32,9 @@ class Grid:
         neigh[1:-1,1:-1] = (X[:-2,:-2]  + X[:-2,1:-1] + X[:-2,2:] + 
                             X[1:-1,:-2] +                X[1:-1,2:]  + 
                             X[2:,:-2]   + X[2:,1:-1]  + X[2:,2:])
+
         self.structure = np.logical_or(neigh==3,np.logical_and(X==1,neigh==2))
+        self.iter += 1
 
 
     def show(self, screen):
@@ -44,5 +46,11 @@ class Grid:
                 rect = pygame.Rect(coord_x, coord_y, cell_size, cell_size)
                 screen.fill(cell_color, rect)
                 pygame.draw.rect(screen, gray, rect, 1)
+
+            # Turn counter
+            font = pygame.font.SysFont("timesnewroman", 15)
+            text = font.render(str(self.iter), False, red, white)
+            if self.iter > 0:
+                screen.blit(text, (5,1))
 
 
