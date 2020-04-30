@@ -1,6 +1,6 @@
 # Header settings
 title = "Conway's Game of Life"
-icon = "images/icon.jpg"
+icon = "images/icon.png"
 
 # Screen settings
 frame_rate = 8
@@ -20,5 +20,5 @@ blue = (0,0,255)
 cell_colors = {
     True: black,  # Living cell
     False: white  # Dead cell
-}
+    }
 grid_color = gray
