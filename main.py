@@ -8,7 +8,7 @@ from grid import *
 # Screen and grid initialization
 pygame.init()
 screen = pygame.display.set_mode((screen_size_x, screen_size_y))
-icon = pygame.image.load(icon)
+icon = pygame.image.load(icon).convert_alpha()
 pygame.display.set_icon(icon)
 pygame.display.set_caption(title)
 
@@ -22,19 +22,18 @@ while True:
     # Lobby 
     while in_lobby:
         grid.show(screen)
-
+        # Title embedding
         text_title = text_font.render("Conway's Game of Life", True, blue)
-        rect_title = pygame.Rect(5*cell_size, 0, screen_size_x - 10*cell_size, 4*cell_size)
+        rect_title = pygame.Rect(6*cell_size, 0, screen_size_x - 12*cell_size, 4*cell_size)
         screen.fill(white, rect_title)
         pygame.draw.rect(screen, black, rect_title, 1)
         screen.blit(text_title, ((screen_size_x - text_title.get_rect().width) / 2, (4*cell_size - text_title.get_rect().height) / 2 ))
-        
+        # Foot instructions embedding
         text_foot = text_font.render("Select initial living cells and press RETURN to start", True, black)
         rect_foot = pygame.Rect(0, screen_size_y - 3*cell_size, screen_size_x, 3*cell_size)
         screen.fill(white, rect_foot)
         pygame.draw.rect(screen, grid_color, rect_foot, 1)
-        screen.blit(text_foot, ((screen_size_x - text_foot.get_rect().width) / 2,  screen_size_y - 2*cell_size))
-
+        screen.blit(text_foot, ((screen_size_x - text_foot.get_rect().width) / 2,  screen_size_y - (text_foot.get_rect().height + 3*cell_size) / 2))
         pygame.display.flip()
 
         # Events handling
@@ -43,7 +42,7 @@ while True:
             if event.type == QUIT or event.type == KEYDOWN and event.key == K_ESCAPE:
                 pygame.quit()
                 quit()       
-            # Switch cell state when clicked on
+            # Switch cell state 
             if event.type == MOUSEBUTTONDOWN and event.button == 1:
                 grid.switch_cell(*event.pos)
             # Closing lobby and starting game
@@ -68,6 +67,7 @@ while True:
             if event.type == KEYDOWN and event.key == K_SPACE:
                 pause = 1
 
+        # Update grid
         grid.evolve()
         grid.show(screen)
         pygame.display.flip()
