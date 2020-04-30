@@ -8,6 +8,6 @@ Les règles de mise à jour sont les suivantes :
 - une cellule morte possédant exactement trois voisines vivantes devient vivante (elle naît),
 - une cellule vivante possédant deux ou trois voisines le reste, sinon elle meurt (d'isolement ou, au contraire, de surpopulation). 
 
-Par exemple, la configuration ![exemple_1](images/example_1.png) devient au tour suivant ![exemple_2](images/example_2.png). 
+Par exemple, la configuration ![exemple_1](images/example1.png) devient au tour suivant ![exemple_2](images/example2.png). 
 
 
