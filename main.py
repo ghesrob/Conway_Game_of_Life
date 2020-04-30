@@ -5,48 +5,63 @@ from config import *
 from grid import *
 
 
-# Initialisation de l'écran et de la grille
+# Screen and grid initialization
 pygame.init()
 screen = pygame.display.set_mode((screen_size_x, screen_size_y))
+icon = pygame.image.load(icon)
+pygame.display.set_icon(icon)
+pygame.display.set_caption(title)
 
+text_font = pygame.font.SysFont("calibri", 30)
 
-# Boucle infinie
+# Infinite loop
 while True:
     in_lobby, in_game = 1, 1
-
     grid = Grid(cell_size, cell_count_x, cell_count_y)
-    # Ecran d'accueil
+
+    # Lobby 
     while in_lobby:
-        for event in pygame.event.get():
+        grid.show(screen)
+
+        text_title = text_font.render("Conway's Game of Life", True, blue)
+        rect_title = pygame.Rect(5*cell_size, 0, screen_size_x - 10*cell_size, 4*cell_size)
+        screen.fill(white, rect_title)
+        pygame.draw.rect(screen, black, rect_title, 1)
+        screen.blit(text_title, ((screen_size_x - text_title.get_rect().width) / 2, (4*cell_size - text_title.get_rect().height) / 2 ))
         
-            # Fermeture de l'app
+        text_foot = text_font.render("Select initial living cells and press RETURN to start", True, black)
+        rect_foot = pygame.Rect(0, screen_size_y - 3*cell_size, screen_size_x, 3*cell_size)
+        screen.fill(white, rect_foot)
+        pygame.draw.rect(screen, grid_color, rect_foot, 1)
+        screen.blit(text_foot, ((screen_size_x - text_foot.get_rect().width) / 2,  screen_size_y - 2*cell_size))
+
+        pygame.display.flip()
+
+        # Events handling
+        for event in pygame.event.get():       
+            # Closing app
             if event.type == QUIT or event.type == KEYDOWN and event.key == K_ESCAPE:
                 pygame.quit()
-                quit()
-        
-            # Switch l'état d'une cell lors d'un clic
+                quit()       
+            # Switch cell state when clicked on
             if event.type == MOUSEBUTTONDOWN and event.button == 1:
                 grid.switch_cell(*event.pos)
-
-            # Fermeture du lobby et lancement du jeu
+            # Closing lobby and starting game
             if event.type == KEYDOWN and event.key == K_RETURN:
                 in_lobby = 0
 
-        grid.show(screen)
-        pygame.display.flip()
 
-
-    # Déroulement du jeu 
+    # In game
     while in_game:
         pygame.time.Clock().tick(frame_rate)
         pause = 0
 
         for event in pygame.event.get():       
-            # Fermeture de l'app
+            # Closing app
             if event.type == QUIT: 
                 pygame.quit()
                 quit()            
-            # Retour accueil
+            # Back to lobby
             if event.type == KEYDOWN and event.key == K_ESCAPE:
                 in_game = 0
             # Pause
@@ -60,11 +75,11 @@ while True:
         # Pause screen
         while pause:
             for event in pygame.event.get():        
-                # Fermeture de l'app
+                # Closing app
                 if event.type == QUIT: 
                     pygame.quit()
                     quit()           
-                # Retour accueil
+                # Back to lobby
                 if event.type == KEYDOWN and event.key == K_ESCAPE:
                     in_game, pause = 0, 0
                 # Pause

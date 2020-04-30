@@ -45,7 +45,7 @@ class Grid:
                 cell_color = cell_colors.get(self.structure[y,x])
                 rect = pygame.Rect(coord_x, coord_y, cell_size, cell_size)
                 screen.fill(cell_color, rect)
-                pygame.draw.rect(screen, gray, rect, 1)
+                pygame.draw.rect(screen, grid_color, rect, 1)
 
             # Turn counter
             font = pygame.font.SysFont("timesnewroman", 15)
