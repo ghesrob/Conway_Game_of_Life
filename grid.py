@@ -25,7 +25,7 @@ class Grid:
    
     def evolve(self):
         """Evolve the grid for one turn.
-        At turn n+1, a cell will be alive if 3 neighbours or 2 neighbours and already alive.
+        At turn n+1, a cell will be alive if: 3 neighbors or 2 neighbors and already alive.
         """
         X = self.structure.copy().astype(int)
         neigh = np.zeros(X.shape)
@@ -38,7 +38,7 @@ class Grid:
 
 
     def show(self, screen):
-        """Print the grid on PyGame screen"""      
+        """Print the grid on PyGame screen."""      
         for x in range(cell_count_x):
             for y in range(cell_count_y):
                 coord_x, coord_y = x * cell_size, y * cell_size
