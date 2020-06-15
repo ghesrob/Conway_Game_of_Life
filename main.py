@@ -27,13 +27,17 @@ while True:
         rect_title = pygame.Rect(6*cell_size, 0, screen_size_x - 12*cell_size, 4*cell_size)
         screen.fill(white, rect_title)
         pygame.draw.rect(screen, black, rect_title, 1)
-        screen.blit(text_title, ((screen_size_x - text_title.get_rect().width) / 2, (4*cell_size - text_title.get_rect().height) / 2 ))
+        blit_x = int((screen_size_x - text_title.get_rect().width) / 2)
+        blit_y = int((4*cell_size - text_title.get_rect().height) / 2 )
+        screen.blit(text_title, (blit_x, blit_y))            
         # Foot instructions embedding
         text_foot = text_font.render("Select initial living cells and press RETURN to start", True, black)
         rect_foot = pygame.Rect(0, screen_size_y - 3*cell_size, screen_size_x, 3*cell_size)
         screen.fill(white, rect_foot)
         pygame.draw.rect(screen, grid_color, rect_foot, 1)
-        screen.blit(text_foot, ((screen_size_x - text_foot.get_rect().width) / 2,  screen_size_y - (text_foot.get_rect().height + 3*cell_size) / 2))
+        blit_x = int((screen_size_x - text_foot.get_rect().width) / 2)
+        blit_y = int(screen_size_y - (text_foot.get_rect().height + 3*cell_size) / 2)
+        screen.blit(text_foot, (blit_x, blit_y))
         pygame.display.flip()
 
         # Events handling
